@@ -13,3 +13,11 @@ Python's libraries:
 6. Flask
 
 For the API I use Flask and for the web inteface I use Angular.
+
+
+# Data from the neural network
+The data used for training the neural network come from [kmnist](https://github.com/rois-codh/kmnist)
+
+"KMNIST Dataset" (created by CODH), adapted from "Kuzushiji Dataset" (created by NIJL and others), doi:10.20676/00000341
+
+No change to the database was done.
