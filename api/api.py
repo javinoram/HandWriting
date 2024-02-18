@@ -66,7 +66,6 @@ CORS(app)
 @app.route("/", methods=['POST'])
 def prediccion():
     if request.method == 'POST':
-        print(request.files, request.get_data())
         try:
             #Get the image from the request
             img = request.files['image']
@@ -86,4 +85,7 @@ def prediccion():
             return {'result': prediction, 'error': ''}
         except:
             return {'result': None, 'error': 'Error in the process'}
-        
+
+
+if __name__ == '__main__':
+    app.run(debug=False)

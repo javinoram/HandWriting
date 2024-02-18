@@ -9,21 +9,27 @@ export default function Home() {
     setSelectedFile(event.target.files[0]);
   }
 
-  function send(){
+  function send(event){
+    event.preventDefault();
+
     if (selectedFile) {
-      const formData = new FormData();
-      formData.append('image', selectedFile);
-      let result = fetch('http://127.0.0.1:5000', {
-        method: 'POST', 
+      const data = new FormData();
+      data.append('image', selectedFile);
+
+      const url = 'http://127.0.0.1:5000';
+
+      let result = fetch(url, {
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Access-Control-Allow-Origin': '*' 
         },
-        mode: 'cors', 
-        body: formData,
-      })
-      alert(result)
+        mode: 'cors',
+        body: data
+      }).then(response => response.json())
+      .then(data => {
+        document.getElementById("respuesta").innerText = data['result'];
+      });
     }
   }
 
@@ -34,6 +40,8 @@ export default function Home() {
         <input type="file" accept=".jpg,.png,.jpeg" onChange={handleFileInputChange}/>
         <button onClick={send}>Enviar</button>
       </form>
+
+      <h1 id="respuesta"></h1>
     </div>
   );
 }

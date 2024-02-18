@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout() {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}> 
+      <body> 
         <Home></Home>
       </body>
     </html>
