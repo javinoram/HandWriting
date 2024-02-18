@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask_cors import CORS
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -59,11 +60,13 @@ def split_images(img):
 
 #APP base
 app = Flask(__name__)
+CORS(app) 
 
 #API base route
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['POST'])
 def prediccion():
-    if request.method == 'GET':
+    if request.method == 'POST':
+        print(request.files, request.get_data())
         try:
             #Get the image from the request
             img = request.files['image']

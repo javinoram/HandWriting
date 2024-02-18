@@ -12,7 +12,7 @@ Python's libraries:
 5. Pillow
 6. Flask
 
-For the API I use Flask and for the web inteface I use Angular.
+For the API I use Flask and for the web inteface I use React.
 
 
 # Data from the neural network
