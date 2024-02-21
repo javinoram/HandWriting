@@ -35,13 +35,27 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Bienvenido</h1>
-      <form>
-        <input type="file" accept=".jpg,.png,.jpeg" onChange={handleFileInputChange}/>
-        <button onClick={send}>Enviar</button>
-      </form>
+      <div id="titular">
+        <h1>Bienvenido</h1>
+      </div>
 
-      <h1 id="respuesta"></h1>
+      <div id="formulario">
+        <form>
+        <div class="form-group">
+          <label for="images" class="drop-container" id="dropcontainer">
+            <span class="drop-title"></span>
+            <input type="file" accept=".jpg,.png,.jpeg" onChange={handleFileInputChange}/>
+          </label>
+        </div>
+        <div class="form-group">
+          <button onClick={send}>Enviar</button>
+        </div>
+        </form>
+      </div>
+
+      <div id="response">
+        <h1 id="respuesta"></h1>
+      </div>
     </div>
   );
 }
