@@ -1,0 +1,10 @@
+numpy
+pandas
+tensorflow
+matplotlib
+pillow
+Flask
+flask-cors
+opencv-python
+waitress
+build

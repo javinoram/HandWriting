@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(#969595, #292929) fixed;
+  background: radial-gradient(circle at 34.2% 44.3%, rgba(233, 79, 79, 0.636) 6.5%, rgb(111, 34, 142) 100.2%) fixed;
 }
 
 button {
@@ -50,10 +50,6 @@ input[type=file]::file-selector-button:hover {
   transition: background .2s ease-in-out, border .2s ease-in-out;
 }
 
-.drop-container:hover {
-  background: #646464;
-  border-color: #111;
-}
 
 .drop-container:hover .drop-title {
   color: #222;

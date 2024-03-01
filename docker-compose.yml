@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  frontend:
+      build: frontend
+      container_name: front-app
+      ports:
+        - "3000:80"
+      restart: "no"
+      volumes: 
+      - ./frontend/:/code
+  api-ml:
+    build: api
+    container_name: api-ml
+    ports:
+      - '8001:8080'
+    volumes:
+      - ./api:/code
+    restart: "no"
