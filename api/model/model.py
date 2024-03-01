@@ -6,10 +6,10 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Input, Dense, Conv2D, MaxPooling2D, Flatten, Dropout
 
 #Lectura de los datasets
-Train_img = np.load('data/k49-train-imgs.npz')['arr_0']
-Train_labels = np.load('data/k49-train-labels.npz')['arr_0']
-Test_img = np.load('data/k49-test-imgs.npz')['arr_0']
-Test_labels = np.load('data/k49-test-labels.npz')['arr_0']
+Train_img = np.load('datos/k49-train-imgs.npz')['arr_0']
+Train_labels = np.load('datos/k49-train-labels.npz')['arr_0']
+Test_img = np.load('datos/k49-test-imgs.npz')['arr_0']
+Test_labels = np.load('datos/k49-test-labels.npz')['arr_0']
 caracteres = pd.read_csv('k49_classmap.csv')
 
 
