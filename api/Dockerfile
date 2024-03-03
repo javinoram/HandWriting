@@ -11,6 +11,4 @@ COPY . /code/
 RUN pip3 install --no-cache-dir --upgrade -r /code/requirements.txt
 
 EXPOSE 8080
-
-#CMD [ "flask", "--app", "api", "run", "--host=127.0.0.1", "--port=8080"]
 CMD [ "python3", "waitress_server.py"]

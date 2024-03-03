@@ -12,8 +12,18 @@ Each one have their own container.
 
 
 # Data from the neural network
-The data used for training the neural network come from [kmnist](https://github.com/rois-codh/kmnist)
+### Japanese
+[kmnist](https://github.com/rois-codh/kmnist)
 
-"KMNIST Dataset" (created by CODH), adapted from "Kuzushiji Dataset" (created by NIJL and others), doi:10.20676/00000341
 
-No change to the database was done.
+### Korean
+[kaggle](https://www.kaggle.com/datasets/wayperwayp/hangulkorean-characters)
+
+[github](https://github.com/junstar92/hangul-syllable-recognition)
+
+### Russian
+[kaggle](https://www.kaggle.com/datasets/constantinwerner/cyrillic-handwriting-dataset/code)
+
+[github](https://github.com/GregVial/CoMNIST)
+
+[stackoverflow](https://stackoverflow.com/questions/47180380/dataset-of-russian-handwriting-characters)
