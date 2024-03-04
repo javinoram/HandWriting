@@ -18,7 +18,7 @@ export default function Home() {
     event.preventDefault();
 
 
-    if (selectedFile) {
+    if (selectedFile && selectedLanguage!="none") {
       const data = new FormData();
       data.append('image', selectedFile);
 
@@ -38,6 +38,38 @@ export default function Home() {
     }
   }
 
+
+  //Dibujar en pantalla
+  const canvasRef = React.useRef(null);
+  const [isDrawing, setIsDrawing] = React.useState(false);
+  const [prevX, setPrevX] = React.useState(0);
+  const [prevY, setPrevY] = React.useState(0);
+
+  const startDrawing = (e) => {
+    setIsDrawing(true);
+    setPrevX(e.nativeEvent.offsetX);
+    setPrevY(e.nativeEvent.offsetY);
+  };
+
+  const draw = (e) => {
+    if (!isDrawing) return;
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.moveTo(prevX, prevY);
+    ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctx.stroke();
+
+    setPrevX(e.nativeEvent.offsetX);
+    setPrevY(e.nativeEvent.offsetY);
+  };
+
+  const stopDrawing = () => {
+    setIsDrawing(false);
+  };
+
+
   return (
     <div>
       <div id="titular">
@@ -46,6 +78,18 @@ export default function Home() {
 
       <div id="formulario">
         <form>
+        <div class="form-group">
+          <canvas
+            ref={canvasRef}
+            width={500}
+            height={500}
+            style={{ border: '1px solid black' }}
+            onMouseDown={startDrawing}
+            onMouseMove={draw}
+            onMouseUp={stopDrawing}
+            onMouseOut={stopDrawing}
+          />
+        </div>
         <div class="form-group">
         <select name="languages" id="lang" onChange={handleLanguageInputChange}>
           <option value="none">None</option>
