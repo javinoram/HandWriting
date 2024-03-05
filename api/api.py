@@ -6,9 +6,6 @@ import tensorflow as tf
 from PIL import Image
 import cv2
 
-#Extra information and hiragana characters
-caracteres = pd.read_csv('model/k49_classmap.csv')
-size = (28,28)
 
 #Function to modify the image to be used for the neural network
 def pre_processing_images(img, size):
@@ -24,11 +21,10 @@ def pre_processing_images(img, size):
     return image_array
 
 #Function to evaluate the image
-def evaluate(img, model):
-    global caracteres, size
+def evaluate(img, model, tipo, size):
     post_image = pre_processing_images(img, size)
     y = model.predict( post_image )
-    return caracteres['char'][ y.argmax(axis=1)[0] ]
+    return (pd.read_csv(f'model/{tipo}/k49_classmap.csv'))['char'][ y.argmax(axis=1)[0] ]
 
 #Function to separate images
 def split_images(img):
@@ -61,9 +57,10 @@ def split_images(img):
 app = Flask(__name__)
 CORS(app) 
 
-#API base route
-@app.route("/", methods=['POST'])
-def prediccion():
+
+#API route for japanese predictor
+@app.route("/japanese", methods=['POST'])
+def prediccion_japanese():
     if request.method == 'POST':
         try:
             #Get the image from the request
@@ -73,18 +70,67 @@ def prediccion():
             list_img = split_images( img )
 
             #Open the NNM to predict the characters 
-            model = tf.keras.models.load_model('model/charactermodels.h5')
+            model = tf.keras.models.load_model('model/japanese/japanesemodel.h5')
 
             #Prediction of each character and save it into a string
             prediction = ""
             for img in list_img:
-                pred = evaluate(img, model)
+                pred = evaluate(img, model, "japanese", (28,28))
                 prediction = prediction + pred
 
             return {'result': prediction, 'error': ''}
         except:
             return {'result': None, 'error': 'Error in the process'}
 
+
+#API route for korean predictor
+@app.route("/korean", methods=['POST'])
+def prediccion_korean():
+    if request.method == 'POST':
+        try:
+            #Get the image from the request
+            img = request.files['image']
+
+            #Split the word in the image into different characters
+            list_img = split_images( img )
+
+            #Open the NNM to predict the characters 
+            model = tf.keras.models.load_model('model/korean/koreanmodel.keras')
+
+            #Prediction of each character and save it into a string
+            prediction = ""
+            for img in list_img:
+                pred = evaluate(img, model, "korean", (28,28))
+                prediction = prediction + pred
+
+            return {'result': prediction, 'error': ''}
+        except:
+            return {'result': None, 'error': 'Error in the process'}
+        
+
+#API route for russian predictor
+@app.route("/russian", methods=['POST'])
+def prediccion_russian():
+    if request.method == 'POST':
+        try:
+            #Get the image from the request
+            img = request.files['image']
+
+            #Split the word in the image into different characters
+            list_img = split_images( img )
+
+            #Open the NNM to predict the characters 
+            model = tf.keras.models.load_model('model/russian/russianmodel.keras')
+
+            #Prediction of each character and save it into a string
+            prediction = ""
+            for img in list_img:
+                pred = evaluate(img, model, "russian", (28,28))
+                prediction = prediction + pred
+
+            return {'result': prediction, 'error': ''}
+        except:
+            return {'result': None, 'error': 'Error in the process'}
 
 if __name__ == '__main__':
     app.run(debug=False)

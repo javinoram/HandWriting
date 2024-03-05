@@ -1,3 +1,5 @@
 venv
-api/model/datos
+api/model/japanese/datos
+api/model/korean/datos
+api/model/russian/datos
 tests
