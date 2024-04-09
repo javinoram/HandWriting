@@ -7,6 +7,19 @@ Software to read handwriting japanese characters (hiragana and katakana)
 Python's libraries are informed in api/requirements.txt.
 
 For the API I use Flask and for the web inteface I use React.
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
 Each one have their own container.
 

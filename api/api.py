@@ -65,13 +65,10 @@ def prediccion_japanese():
         try:
             #Get the image from the request
             img = request.files['image']
-
             #Split the word in the image into different characters
             list_img = split_images( img )
-
             #Open the NNM to predict the characters 
-            model = tf.keras.models.load_model('model/japanese/japanesemodel.h5')
-
+            model = tf.keras.models.load_model('model/japanese/japanesemodel.keras')
             #Prediction of each character and save it into a string
             prediction = ""
             for img in list_img:

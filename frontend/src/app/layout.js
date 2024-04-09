@@ -1,6 +1,4 @@
 import TabComponent from "./componentes/menu_pestañas.js";
-import "./globals.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 export const metadata = {
   title: "HandWriting",
@@ -8,7 +6,6 @@ export const metadata = {
 };
 
 export default function RootLayout() {
-
   return (
     <html lang="en">
       <body> 

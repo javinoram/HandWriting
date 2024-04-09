@@ -1,16 +1,32 @@
 'use client'
 import React from "react";
 
-export default function Dibujo( { handleFileChange } ) {
+export default function Dibujo() {
+  const [selectedLanguage, setLanguage] = React.useState("japanese");
 
-  const [DrawFile, setDraw] = React.useState(0);
-
-  const save_image = (event) => {
+  function send(event){
     event.preventDefault();
     const canvas = canvasRef.current;
-    const dataURL = canvas.toDataURL('image/png'); // Convierte el contenido del canvas en una imagen PNG
-    // Guarda la imagen en la variable de estado
-    setDraw(dataURL);
+    canvas.toBlob( (blob) => {
+      if (blob) {
+        const file = new File([blob], 'dibujo.png', { type: 'image/png' }); 
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const url = 'http://127.0.0.1:5000/' + selectedLanguage;
+        fetch(url, {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("respuesta").innerText = data['result'];
+        })
+        .catch(error => {
+          console.error('Error sending data:', error);
+        });
+      }
+    }, 'image/png');
   };
 
   const canvasRef = React.useRef(null);
@@ -35,7 +51,9 @@ export default function Dibujo( { handleFileChange } ) {
     if (!isDrawing) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 5; 
+    ctx.fillStyle = 'white';
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
     ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -52,22 +70,32 @@ export default function Dibujo( { handleFileChange } ) {
 
   return (
     <div>
-        <div>
-            <canvas
-                ref={canvasRef}
-                width={300}
-                height={500}
-                style={{ border: '1px solid black' }}
-                onMouseDown={startDrawing}
-                onMouseMove={draw}
-                onMouseUp={stopDrawing}
-                onMouseOut={stopDrawing}
-            />
+      <form>
+        <div className="form-group">
+          <select className="form-select" name="languages" id="lang" onChange={setLanguage}>
+            <option value="japanese">Japanese</option>
+            <option value="korean">Korean</option>
+            <option value="russian">Russian</option>
+          </select>
         </div>
-        <div>
-        <button className="btn btn-secondary" onClick={clean}>Clean canvas</button>
-        <button className="btn btn-secondary" onClick={save_image}>Save image</button>
+
+        <div className="form-group">
+          <canvas ref={canvasRef} width={300} height={300}
+            style={{ border: '3px solid black' }}
+            onMouseDown={startDrawing} onMouseMove={draw}
+            onMouseUp={stopDrawing} onMouseOut={stopDrawing}
+          />
         </div>
+
+        <div className="form-group">
+          <button className="btn btn-secondary" onClick={clean}>Clean canvas</button>
+          <button className="btn btn-secondary" onClick={send}>Send</button>
+        </div>
+      </form>
+
+      <div id="response">
+        <h1 id="respuesta"></h1>
+      </div>
     </div>
   );
 }

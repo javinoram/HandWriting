@@ -3,3 +3,5 @@ api/model/japanese/datos
 api/model/korean/datos
 api/model/russian/datos
 tests
+*.DS_Store
+*pycache*

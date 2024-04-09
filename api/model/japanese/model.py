@@ -27,9 +27,9 @@ model.add(Flatten())
 model.add(Dense(49, activation="softmax"))
 
 #Entrenar modelo
-model.compile("adam", loss=tf.keras.losses.SparseCategoricalCrossentropy(), metrics="accuracy")
+model.compile("adam", loss=tf.keras.losses.SparseCategoricalCrossentropy(), metrics=["accuracy"])
 history = model.fit(Train_img, Train_labels, epochs=10, validation_split=0.2)
 
 #Guardar modelo
-model.save('japanesemodel.h5')
+model.save('japanesemodel.keras')
 print('Model saved!')
