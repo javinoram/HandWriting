@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-export default function SubirDibujo( { handleFileChange } ) {
+export default function SubirDibujo() {
   const [selectedLanguage, setLanguage] = React.useState("japanese");
   const [selectedFile, setSelectedFile] = React.useState(null);
 
@@ -14,7 +14,7 @@ export default function SubirDibujo( { handleFileChange } ) {
     if (selectedFile && selectedLanguage!="none") {
       const data = new FormData();
       data.append('image', selectedFile);
-
+      console.log(data)
       const url = 'http://127.0.0.1:5000/'+selectedLanguage;
       let result = fetch(url, {
         method: 'POST',
@@ -27,6 +27,9 @@ export default function SubirDibujo( { handleFileChange } ) {
       }).then(response => response.json())
       .then(data => {
         document.getElementById("respuesta").innerText = data['result'];
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
       });
     }
   };
@@ -50,7 +53,7 @@ export default function SubirDibujo( { handleFileChange } ) {
         </div>
 
         <div className="form-group">
-          <button className="btn btn-secondary" onClick={send}>Enviar</button>
+          <button className="btn btn-secondary" onClick={send}>Send</button>
         </div>
       </form>
 
