@@ -31,5 +31,5 @@ model.compile("adam", loss=tf.keras.losses.SparseCategoricalCrossentropy(), metr
 history = model.fit(Train_img, Train_labels, epochs=10, validation_split=0.2)
 
 #Guardar modelo
-model.save('japanesemodel')
+model.save('japanesemodel.keras')
 print('Model saved!')

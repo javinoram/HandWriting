@@ -62,27 +62,22 @@ CORS(app)
 @app.route("/japanese", methods=['POST'])
 def prediccion_japanese():
     if request.method == 'POST':
-        #try:
-            print("1")
+        try:
             #Get the image from the request
             img = request.files['image']
-            print("1")
             #Split the word in the image into different characters
             list_img = split_images( img )
-            print("1")
             #Open the NNM to predict the characters 
-            model = tf.keras.models.load_model('model/japanese/japanesemodel')
-            print("1")
+            model = tf.keras.models.load_model('model/japanese/japanesemodel.keras')
             #Prediction of each character and save it into a string
             prediction = ""
             for img in list_img:
                 pred = evaluate(img, model, "japanese", (28,28))
-                print("1")
                 prediction = prediction + pred
 
             return {'result': prediction, 'error': ''}
-        #except:
-        #    return {'result': None, 'error': 'Error in the process'}
+        except:
+            return {'result': None, 'error': 'Error in the process'}
 
 
 #API route for korean predictor
