@@ -14,8 +14,9 @@ export default function SubirDibujo() {
     if (selectedFile && selectedLanguage!="none") {
       const data = new FormData();
       data.append('image', selectedFile);
+      data.append('language', selectedLanguage);
       console.log(data)
-      const url = 'http://127.0.0.1:5000/'+selectedLanguage;
+      const url = 'http://127.0.0.1:5000/predict';
       let result = fetch(url, {
         method: 'POST',
         headers: {
