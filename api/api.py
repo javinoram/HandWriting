@@ -80,6 +80,8 @@ def prediccion():
                 prediction = prediction + pred
 
             return {'result': prediction, 'error': ''}
+        except ValueError:
+            return {'result': None, 'error': 'Model not found'}
         except:
             return {'result': None, 'error': 'Error in the process'}
 
