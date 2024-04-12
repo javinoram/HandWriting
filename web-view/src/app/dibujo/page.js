@@ -9,10 +9,13 @@ export default function Dibujo() {
     const canvas = canvasRef.current;
     canvas.toBlob( (blob) => {
       if (blob) {
+
+        //Take the canvas and transform it into a .png image
         const file = new File([blob], 'dibujo.png', { type: 'image/png' }); 
         const formData = new FormData();
         formData.append('image', file);
 
+        //Send the form to the API
         const url = 'http://127.0.0.1:5000/' + selectedLanguage;
         fetch(url, {
           method: 'POST',
@@ -20,6 +23,7 @@ export default function Dibujo() {
         })
         .then(response => response.json())
         .then(data => {
+          //Take the response and show it in the page
           document.getElementById("respuesta").innerText = data['result'];
         })
         .catch(error => {
@@ -67,7 +71,6 @@ export default function Dibujo() {
     setIsDrawing(false);
   };
 
-
   return (
     <div className="container-sm px-3 text-center">
       <form>
@@ -80,8 +83,8 @@ export default function Dibujo() {
         </div>
 
         <div className="mb-3">
-          <canvas ref={canvasRef} width={300} height={300}
-            style={{ border: '3px solid black' }}
+          <canvas id="responsive-canvas" ref={canvasRef} width={600} height={300}
+            style={{ border: '2px solid black' }}
             onMouseDown={startDrawing} onMouseMove={draw}
             onMouseUp={stopDrawing} onMouseOut={stopDrawing}
           />

@@ -46,10 +46,8 @@ export default function SubirDibujo() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="images" className="drop-container" id="dropcontainer">
-            <span className="drop-title"></span>
-            <input type="file" accept=".jpg,.png,.jpeg" onChange={onFileChange}/>
-          </label>
+          <label htmlFor="images" className="form-label" id="dropcontainer">The image must be .jpg, .png or .jpeg</label>
+          <input className="form-control" type="file" accept=".jpg,.png,.jpeg" onChange={onFileChange}/>
         </div>
 
         <div className="mb-3">
