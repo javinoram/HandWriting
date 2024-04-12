@@ -1,13 +1,13 @@
 version: '3.7'
 services:
-  frontend:
-      build: frontend
-      container_name: front-app
+  web-view:
+      build: web-view
+      container_name: web-view
       ports:
         - "3000:80"
       restart: "no"
       volumes: 
-      - ./frontend/:/code
+      - ./web-view/:/code
   api-ml:
     build: api
     container_name: api-ml

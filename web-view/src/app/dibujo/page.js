@@ -69,9 +69,9 @@ export default function Dibujo() {
 
 
   return (
-    <div>
+    <div className="container-sm px-3 text-center">
       <form>
-        <div className="form-group">
+      <div className="mb-3">
           <select className="form-select" name="languages" id="lang" onChange={setLanguage}>
             <option value="japanese">Japanese</option>
             <option value="korean">Korean</option>
@@ -79,7 +79,7 @@ export default function Dibujo() {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className="mb-3">
           <canvas ref={canvasRef} width={300} height={300}
             style={{ border: '3px solid black' }}
             onMouseDown={startDrawing} onMouseMove={draw}
@@ -87,13 +87,13 @@ export default function Dibujo() {
           />
         </div>
 
-        <div className="form-group">
-          <button className="btn btn-secondary" onClick={clean}>Clean canvas</button>
-          <button className="btn btn-secondary" onClick={send}>Send</button>
+        <div className="btn-group" role="group" aria-label="Basic outlined example">
+          <button className="btn btn-outline-primary" onClick={clean}>Clean canvas</button>
+          <button className="btn btn-outline-primary" onClick={send}>Send</button>
         </div>
       </form>
 
-      <div id="response">
+      <div className="mb-3" id="response">
         <h1 id="respuesta"></h1>
       </div>
     </div>

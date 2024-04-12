@@ -35,9 +35,9 @@ export default function SubirDibujo() {
   };
 
   return (
-    <div>
+    <div className="container-sm px-3 text-center">
       <form>
-        <div className="form-group">
+        <div className="mb-3">
           <select className="form-select" name="languages" id="lang" onChange={setLanguage}>
             <option value="japanese">Japanese</option>
             <option value="korean">Korean</option>
@@ -45,19 +45,19 @@ export default function SubirDibujo() {
           </select>
         </div>
 
-        <div className="form-group">
+        <div className="mb-3">
           <label htmlFor="images" className="drop-container" id="dropcontainer">
             <span className="drop-title"></span>
             <input type="file" accept=".jpg,.png,.jpeg" onChange={onFileChange}/>
           </label>
         </div>
 
-        <div className="form-group">
-          <button className="btn btn-secondary" onClick={send}>Send</button>
+        <div className="mb-3">
+          <button className="btn btn-outline-primary" onClick={send}>Send</button>
         </div>
       </form>
 
-      <div id="response">
+      <div className="mb-3" id="response">
         <h1 id="respuesta"></h1>
       </div>
     </div>
