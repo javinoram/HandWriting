@@ -58,76 +58,33 @@ app = Flask(__name__)
 CORS(app) 
 
 
-#API route for japanese predictor
-@app.route("/japanese", methods=['POST'])
-def prediccion_japanese():
+#API route for the predictor
+@app.route("/predict", methods=['POST'])
+def prediccion():
     if request.method == 'POST':
         try:
-            #Get the image from the request
-            img = request.files['image']
-            #Split the word in the image into different characters
-            list_img = split_images( img )
-            #Open the NNM to predict the characters 
-            model = tf.keras.models.load_model('model/japanese/japanesemodel.keras')
-            #Prediction of each character and save it into a string
-            prediction = ""
-            for img in list_img:
-                pred = evaluate(img, model, "japanese", (28,28))
-                prediction = prediction + pred
-
-            return {'result': prediction, 'error': ''}
-        except:
-            return {'result': None, 'error': 'Error in the process'}
-
-
-#API route for korean predictor
-@app.route("/korean", methods=['POST'])
-def prediccion_korean():
-    if request.method == 'POST':
-        try:
-            #Get the image from the request
+            #Get the image and the selected language from the request
+            lang = request.form['language']
             img = request.files['image']
 
             #Split the word in the image into different characters
             list_img = split_images( img )
 
             #Open the NNM to predict the characters 
-            model = tf.keras.models.load_model('model/korean/koreanmodel.keras')
+            model = tf.keras.models.load_model(f'model/{lang}/model.keras')
 
             #Prediction of each character and save it into a string
             prediction = ""
             for img in list_img:
-                pred = evaluate(img, model, "korean", (28,28))
+                pred = evaluate(img, model, lang, (28,28))
                 prediction = prediction + pred
 
             return {'result': prediction, 'error': ''}
+        except ValueError:
+            return {'result': None, 'error': 'Model not found'}
         except:
             return {'result': None, 'error': 'Error in the process'}
-        
 
-#API route for russian predictor
-@app.route("/russian", methods=['POST'])
-def prediccion_russian():
-    if request.method == 'POST':
-        try:
-            #Get the image from the request
-            img = request.files['image']
-
-            #Split the word in the image into different characters
-            list_img = split_images( img )
-
-            #Open the NNM to predict the characters 
-            model = tf.keras.models.load_model('model/russian/russianmodel.keras')
-
-            #Prediction of each character and save it into a string
-            prediction = ""
-            for img in list_img:
-                pred = evaluate(img, model, "russian", (28,28))
-                prediction = prediction + pred
-
-            return {'result': prediction, 'error': ''}
-        except:
-            return {'result': None, 'error': 'Error in the process'}
 
 if __name__ == '__main__':
     app.run(debug=False)

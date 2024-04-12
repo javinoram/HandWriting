@@ -14,9 +14,10 @@ export default function Dibujo() {
         const file = new File([blob], 'dibujo.png', { type: 'image/png' }); 
         const formData = new FormData();
         formData.append('image', file);
+        formData.append('language', selectedLanguage);
 
         //Send the form to the API
-        const url = 'http://127.0.0.1:5000/' + selectedLanguage;
+        const url = 'http://127.0.0.1:5000/predict';
         fetch(url, {
           method: 'POST',
           body: formData
