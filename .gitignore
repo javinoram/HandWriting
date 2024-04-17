@@ -4,4 +4,6 @@ api/model/korean/datos
 api/model/russian/datos
 tests
 *.DS_Store
-*pycache*
+*pycache*/
+*/image_proc.py
+*.keras
