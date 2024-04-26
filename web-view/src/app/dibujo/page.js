@@ -4,9 +4,48 @@ import React from "react";
 export default function Dibujo() {
   const [selectedLanguage, setLanguage] = React.useState("japanese");
 
+  //Canvas variables
+  const canvasRef = React.useRef(null);
+  const [isDrawing, setIsDrawing] = React.useState(false);
+  const [prevX, setPrevX] = React.useState(0);
+  const [prevY, setPrevY] = React.useState(0);
+
+
+  /*Function to download the canvas as a .png image */
+  function Download (event){
+    event.preventDefault();
+
+    //Solution from
+    //https://stackoverflow.com/questions/36736829/how-can-i-set-the-canvas-background-before-downloading
+    const canvas = canvasRef.current;
+    var ctx = canvas.getContext('2d');
+
+    //Make the background of the image white
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob( (blob) => {
+      if (blob) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'image.png';
+        a.click();
+      }
+    })
+  };
+
   function send(event){
     event.preventDefault();
     const canvas = canvasRef.current;
+    var ctx = canvas.getContext('2d');
+
+    //Make the background of the image white
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     canvas.toBlob( (blob) => {
       if (blob) {
 
@@ -33,12 +72,7 @@ export default function Dibujo() {
       }
     }, 'image/png');
   };
-
-  const canvasRef = React.useRef(null);
-  const [isDrawing, setIsDrawing] = React.useState(false);
-  const [prevX, setPrevX] = React.useState(0);
-  const [prevY, setPrevY] = React.useState(0);
-
+  
   const startDrawing = (e) => {
     setIsDrawing(true);
     setPrevX(e.nativeEvent.offsetX);
@@ -57,8 +91,8 @@ export default function Dibujo() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     ctx.strokeStyle = 'black';
-    ctx.lineWidth = 5; 
-    ctx.fillStyle = 'white';
+    ctx.lineWidth = 5;
+
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
     ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -85,7 +119,7 @@ export default function Dibujo() {
 
         <div className="mb-3">
           <canvas id="responsive-canvas" ref={canvasRef} width={600} height={300}
-            style={{ border: '2px solid black' }}
+            style={{ border: '2px solid black', backgroundColor: 'white'}}
             onMouseDown={startDrawing} onMouseMove={draw}
             onMouseUp={stopDrawing} onMouseOut={stopDrawing}
           />
@@ -94,6 +128,7 @@ export default function Dibujo() {
         <div className="btn-group" role="group" aria-label="Basic outlined example">
           <button className="btn btn-outline-primary" onClick={clean}>Clean canvas</button>
           <button className="btn btn-outline-primary" onClick={send}>Send</button>
+          <button className="btn btn-outline-primary" onClick={Download}>Descargar</button>
         </div>
       </form>
 
