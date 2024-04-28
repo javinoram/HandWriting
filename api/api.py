@@ -1,10 +1,10 @@
 from flask import Flask, request
 from flask_cors import CORS
+from PIL import Image
+from tensorflow.keras.models import load_model
 import pandas as pd
 import numpy as np
-import tensorflow as tf
-from PIL import Image
-import cv2
+import cv2 as cv2
 
 
 #Function to modify the image to be used for the neural network
@@ -71,7 +71,7 @@ def prediccion():
             list_img = split_images( img )
 
             #Open the NNM to predict the characters 
-            model = tf.keras.models.load_model(f'model/{lang}/model.keras')
+            model = load_model(f'model/{lang}/model.keras')
 
             #Prediction of each character and save it into a string
             prediction = ""
@@ -82,8 +82,6 @@ def prediccion():
             return {'result': prediction, 'error': ''}
         except ValueError:
             return {'result': None, 'error': 'Model not found'}
-        except:
-            return {'result': None, 'error': 'Error in the process'}
 
 
 if __name__ == '__main__':
