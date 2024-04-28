@@ -10,20 +10,20 @@ export default function Dibujo() {
   const [prevX, setPrevX] = React.useState(0);
   const [prevY, setPrevY] = React.useState(0);
 
+  /*Function to make the background of the image white.
+  Solution from https://stackoverflow.com/questions/36736829/how-can-i-set-the-canvas-background-before-downloading*/
+  function whiteBrackground (canvas) {
+    var ctx = canvas.getContext('2d');
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 
   /*Function to download the canvas as a .png image */
   function Download (event){
     event.preventDefault();
-
-    //Solution from
-    //https://stackoverflow.com/questions/36736829/how-can-i-set-the-canvas-background-before-downloading
     const canvas = canvasRef.current;
-    var ctx = canvas.getContext('2d');
-
-    //Make the background of the image white
-    ctx.globalCompositeOperation = 'destination-over';
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    whiteBrackground(canvas);
 
     canvas.toBlob( (blob) => {
       if (blob) {
@@ -36,15 +36,12 @@ export default function Dibujo() {
     })
   };
 
+  /*Function to send the canvas as a .png image 
+  this is done creating a blob and File object*/
   function send(event){
     event.preventDefault();
     const canvas = canvasRef.current;
-    var ctx = canvas.getContext('2d');
-
-    //Make the background of the image white
-    ctx.globalCompositeOperation = 'destination-over';
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    whiteBrackground(canvas);
 
     canvas.toBlob( (blob) => {
       if (blob) {
@@ -80,10 +77,10 @@ export default function Dibujo() {
   };
 
   const clean = (e) => {
-    e.preventDefault(); // Evita la recarga de la página
+    e.preventDefault();
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpia el canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
 
   const draw = (e) => {
@@ -121,7 +118,7 @@ export default function Dibujo() {
           <canvas id="responsive-canvas" ref={canvasRef} width={600} height={300}
             style={{ border: '2px solid black', backgroundColor: 'white'}}
             onMouseDown={startDrawing} onMouseMove={draw}
-            onMouseUp={stopDrawing} onMouseOut={stopDrawing}
+            onMouseUp={stopDrawing} onMouseOut={stopDrawing} onBlur={stopDrawing}
           />
         </div>
 
