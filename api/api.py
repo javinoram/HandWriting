@@ -66,6 +66,7 @@ def prediccion():
             #Get the image and the selected language from the request
             lang = request.form['language']
             img = request.files['image']
+            size = int( request.form['size'] )
 
             #Split the word in the image into different characters
             list_img = split_images( img )
@@ -76,7 +77,7 @@ def prediccion():
             #Prediction of each character and save it into a string
             prediction = ""
             for img in list_img:
-                pred = evaluate(img, model, lang, (28,28))
+                pred = evaluate(img, model, lang, (size,size))
                 prediction = prediction + pred
 
             return {'result': prediction, 'error': ''}
