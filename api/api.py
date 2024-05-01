@@ -24,7 +24,7 @@ def pre_processing_images(img, size):
 def evaluate(img, model, tipo, size):
     post_image = pre_processing_images(img, size)
     y = model.predict( post_image )
-    return (pd.read_csv(f'model/{tipo}/k49_classmap.csv'))['char'][ y.argmax(axis=1)[0] ]
+    return (pd.read_csv(f'model/{tipo}/classmap.csv'))['char'][ y.argmax(axis=1)[0] ]
 
 #Function to separate images
 def split_images(img):

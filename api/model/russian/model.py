@@ -5,14 +5,14 @@ from tensorflow.keras.layers import Input, Dense, Conv2D, MaxPooling2D, Flatten
 from sklearn.model_selection import train_test_split
 
 #Lectura de los datasets
-img = np.load('datos/russian_images.npz')['arr_0']
+images = np.load('datos/russian_images.npz')['arr_0']
 labels = np.load('datos/russian_labels.npz')['arr_0']
-Train_img, Test_img, Train_labels, Test_labels = train_test_split(img, labels, test_size=0.1)
 
-Train_img = (Train_img.astype('float32')/255)#.to_numpy()
-Train_labels = (Train_labels.astype('float32'))#.to_numpy()
-Test_img = (Test_img.astype('float32')/255)#.to_numpy()
-Test_labels = (Test_labels.astype('float32'))#.to_numpy()
+Train_img, Test_img, Train_labels, Test_labels = train_test_split(images, labels, test_size=0.1)
+Train_img = (Train_img.astype('float32')/255)
+Train_labels = (Train_labels.astype('float32'))
+Test_img = (Test_img.astype('float32')/255)
+Test_labels = (Test_labels.astype('float32'))
 
 #Definicion del modelo
 model = Sequential()

@@ -9,7 +9,6 @@ Train_labels = np.load('datos/k49-train-labels.npz')['arr_0']
 Test_img = np.load('datos/k49-test-imgs.npz')['arr_0']
 Test_labels = np.load('datos/k49-test-labels.npz')['arr_0']
 
-
 #Definicion del modelo
 model = Sequential()
 model.add(Input(shape=(28, 28, 1)))
