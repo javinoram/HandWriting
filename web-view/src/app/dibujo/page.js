@@ -49,6 +49,12 @@ export default function Dibujo() {
         //Take the canvas and transform it into a .png image
         const file = new File([blob], 'dibujo.png', { type: 'image/png' }); 
         const formData = new FormData();
+        if (selectedLanguage === "russian" || selectedLanguage === "korean"){
+          formData.append( 'size', 32 );
+        }else {
+          formData.append( 'size', 28 );
+        }
+
         formData.append('image', file);
         formData.append('language', selectedLanguage);
 
@@ -103,11 +109,15 @@ export default function Dibujo() {
     setIsDrawing(false);
   };
 
+  const Language = (event) => {
+    setLanguage( event.target.value );
+  }
+
   return (
     <div className="container-sm px-3 text-center">
       <form>
       <div className="mb-3">
-          <select className="form-select" name="languages" id="lang" onChange={setLanguage}>
+          <select className="form-select" name="languages" id="lang" onChange={Language}>
             <option value="japanese">Japanese</option>
             <option value="korean">Korean</option>
             <option value="russian">Russian</option>

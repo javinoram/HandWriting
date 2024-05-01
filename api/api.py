@@ -24,7 +24,7 @@ def pre_processing_images(img, size):
 def evaluate(img, model, tipo, size):
     post_image = pre_processing_images(img, size)
     y = model.predict( post_image )
-    return (pd.read_csv(f'model/{tipo}/k49_classmap.csv'))['char'][ y.argmax(axis=1)[0] ]
+    return (pd.read_csv(f'model/{tipo}/classmap.csv'))['char'][ y.argmax(axis=1)[0] ]
 
 #Function to separate images
 def split_images(img):
@@ -66,6 +66,7 @@ def prediccion():
             #Get the image and the selected language from the request
             lang = request.form['language']
             img = request.files['image']
+            size = int( request.form['size'] )
 
             #Split the word in the image into different characters
             list_img = split_images( img )
@@ -76,7 +77,7 @@ def prediccion():
             #Prediction of each character and save it into a string
             prediction = ""
             for img in list_img:
-                pred = evaluate(img, model, lang, (28,28))
+                pred = evaluate(img, model, lang, (size,size))
                 prediction = prediction + pred
 
             return {'result': prediction, 'error': ''}

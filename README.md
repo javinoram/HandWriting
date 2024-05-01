@@ -12,18 +12,13 @@ Updating the containers ...
 
 
 # Data from the neural network
+Here you can find the repositories where the data was extracted, all the modified dataset can be shared through an appropriate request.
+Any recommendation to improve the accuracy of the NNs is welcome.
 ### Japanese
-[kmnist](https://github.com/rois-codh/kmnist)
-
+Original data from [kmnist](https://github.com/rois-codh/kmnist), images size change to 32x32.
 
 ### Korean
-[kaggle](https://www.kaggle.com/datasets/wayperwayp/hangulkorean-characters)
-
-[github](https://github.com/junstar92/hangul-syllable-recognition)
+Original data from [kaggle](https://www.kaggle.com/datasets/henryshippole/hangul-characters-250k), images size change to 64x64.
 
 ### Russian
-[kaggle](https://www.kaggle.com/datasets/constantinwerner/cyrillic-handwriting-dataset/code)
-
-[github](https://github.com/GregVial/CoMNIST)
-
-[stackoverflow](https://stackoverflow.com/questions/47180380/dataset-of-russian-handwriting-characters)
+Original data from [github](https://github.com/GregVial/CoMNIST), images size change to 32x32 and a white background is added to them (originally, the image non have a background).
