@@ -1,7 +1,6 @@
 numpy
 pandas
 tensorflow
-matplotlib
 pillow
 Flask
 flask-cors
@@ -9,3 +8,4 @@ opencv-python
 waitress
 build
 scikit-learn
+blinker==1.4
