@@ -1,14 +1,10 @@
-FROM python:3.10
-
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
-    && rm -rf /var/lib/apt/lists/*
-
+FROM tensorflow/tensorflow:latest
 WORKDIR /code
 
 #copiar todos los archivos e instalar librerias
 COPY . /code/
-RUN pip3 install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install --upgrade pip setuptools wheel
+RUN pip3 install --no-cache-dir -r /code/requirements.txt
 
-EXPOSE 8080
+EXPOSE 8081
 CMD [ "python3", "waitress_server.py"]
